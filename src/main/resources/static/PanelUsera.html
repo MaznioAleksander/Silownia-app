@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ProjectGym - Panel</title>
 </head>
 <body>
 <nav>
@@ -13,6 +13,7 @@
         <button id="wyloguj">Wyloguj</button>
     </div>
 </nav>
+
 <main>
     <section>
         <h2>Kup lub przedłuż karnet</h2>
@@ -22,12 +23,14 @@
                 <option value="STUDENCKI">Studencki (130.00 / 30dni)</option>
                 <option value="ROCZNY">Roczny (1600.00 / 365dni)</option>
             </select>
-            <button id="kup">Zatwierdz zakup</button>
+            <button id="kup">Zatwierdź zakup</button>
         </div>
         <div id="statusWiadomosc"></div>
     </section>
+
     <section>
         <h2>Twoje karnety</h2>
+        <button id="odswiez">Odśwież listę</button>
         <table>
             <thead>
             <tr>
@@ -40,11 +43,84 @@
             </thead>
             <tbody id="karnety">
             <tr>
-                <td colspan="5">ładowanie historii</td>
+                <td colspan="5">Ładowanie historii...</td>
             </tr>
             </tbody>
         </table>
     </section>
 </main>
+
+<script>
+    const zapisanyUser = localStorage.getItem('gymUser');
+    if (!zapisanyUser) {
+        window.location.href = 'Logowanie.html';
+    }
+    const aktywnyUser = JSON.parse(zapisanyUser);
+    document.getElementById('userInfo').textContent = `${aktywnyUser.imie} ${aktywnyUser.nazwisko} (${aktywnyUser.email})`;
+
+    document.getElementById('wyloguj').addEventListener('click', () => {
+        localStorage.removeItem('gymUser');
+        window.location.href = 'Logowanie.html';
+    });
+
+    async function wczytajKarnety() {
+        const tbody = document.getElementById('karnety');
+        try {
+            const res = await fetch(`http://localhost:8080/api/karnety/uzytkownik/${aktywnyUser.id}`);
+            if (!res.ok) {
+                throw new Error('Nie udało się wczytać karnetów');
+            }
+            const dane = await res.json();
+            tbody.innerHTML = '';
+
+            if (dane.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">Nie posiadasz jeszcze żadnych karnetów.</td></tr>';
+                return;
+            }
+
+            dane.forEach(k => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${k.rodzajKarnetu}</td>
+                    <td>${k.cena} PLN</td>
+                    <td>${k.dataOd}</td>
+                    <td>${k.dataDo}</td>
+                    <td>${k.statusKarnetu}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        } catch (err) {
+            tbody.innerHTML = `<tr><td colspan="5">${err.message}</td></tr>`;
+        }
+    }
+
+    document.getElementById('kup').addEventListener('click', async () => {
+        const rodzajKarnetu = document.getElementById('RodzajKarnetu').value;
+        const statusBox = document.getElementById('statusWiadomosc');
+        statusBox.textContent = '';
+
+        try {
+            const res = await fetch('http://localhost:8080/api/karnety/kup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: aktywnyUser.id,
+                    rodzajKarnetu: rodzajKarnetu
+                })
+            });
+
+            if (!res.ok) throw new Error('Błąd podczas zakupu karnetu');
+
+            statusBox.textContent = 'Karnet został pomyślnie zakupiony / przedłużony!';
+            wczytajKarnety();
+        } catch (err) {
+            statusBox.textContent = err.message;
+        }
+    });
+
+    document.getElementById('odswiez').addEventListener('click', wczytajKarnety);
+
+    wczytajKarnety();
+</script>
 </body>
 </html>
