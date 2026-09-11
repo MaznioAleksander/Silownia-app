@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gym - Twoja Siłownia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[url('./img/gym.jpg')] min-h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-between relative selection:bg-cyan-500 selection:text-black">
+    
+    
+    <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/60 to-transparent pointer-events-none"></div>
+    <header class="relative z-10 border-b border-white/10 bg-black/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-black tracking-widest text-cyan-400 drop-shadow-[0_0_12px_rgba(34,211,238,0.8)]">
+                    PROJECT<span class="text-white">GYM</span>
+                </span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-widest text-slate-300 uppercase">
+                <a href="#" class="hover:text-cyan-400 transition">Strefa</a>
+                <a href="#" class="hover:text-cyan-400 transition">Karnety</a>
+                <a href="#" class="hover:text-cyan-400 transition">Grafik</a>
+                <a href="#" class="hover:text-cyan-400 transition">Kontakt</a>
+            </nav>
+
+            <div>
+                <a href="logowanie.html" class="text-xs font-bold tracking-wider uppercase border border-pink-500/60 text-pink-400 px-5 py-2.5 rounded-full hover:bg-pink-500 hover:text-white transition shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+                    Panel Klienta
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl w-full mx-auto px-6 md:px-12 py-12 flex-1 flex flex-col justify-center">
+        <div class="max-w-xl">
+           
+            <p class="text-xs font-mono tracking-widest text-slate-400 mb-1">kicker</p>
+            <h3 class="text-cyan-400 font-bold tracking-widest text-sm md:text-base uppercase mb-3 drop-shadow-[0_0_8px_rgba(34,211,238,0.7)]">
+                NIGHT SHIFT // NO EXCUSES
+            </h3>
+
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-black text-white leading-none tracking-tight uppercase mb-6">
+                FORGED IN <br>
+                <span class="text-pink-500 drop-shadow-[0_0_20px_rgba(236,72,153,0.7)]">THE DARK</span>
+            </h1>
+
+         
+            <p class="text-sm md:text-base text-slate-300 font-light leading-relaxed max-w-md mb-8">
+                24/7 access to pure strength, industrial atmosphere, no crowds. Build your body in the rhythms of the night.
+            </p>
+            <div class="flex flex-wrap gap-4 items-center">
+                <a href="rejestracja.html" class="bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-xs tracking-wider uppercase px-7 py-3.5 rounded-md transition shadow-[0_0_25px_rgba(34,211,238,0.8)]">
+                    Dołącz do nas
+                </a>
+                <a href="#" class="bg-transparent border border-pink-500/80 hover:bg-pink-500/20 text-white font-extrabold text-xs tracking-wider uppercase px-7 py-3.5 rounded-md transition shadow-[0_0_15px_rgba(236,72,153,0.4)]">
+                    Poznaj cennik
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <section class="relative z-10 max-w-5xl w-full mx-auto px-6 mb-8">
+        <div class="bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-2xl py-5 px-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-white/10 shadow-2xl">
+            <div class="pt-2 md:pt-0">
+                <div class="text-2xl font-black text-cyan-400 tracking-wider">24/7</div>
+                <div class="text-[11px] font-bold tracking-widest text-slate-300 uppercase mt-1">Dostęp non-stop</div>
+            </div>
+            <div class="pt-4 md:pt-0">
+                <div class="text-2xl font-black text-cyan-400 tracking-wider">0 BS</div>
+                <div class="text-[11px] font-bold tracking-widest text-slate-300 uppercase mt-1">Tylko wolne ciężary</div>
+            </div>
+            <div class="pt-4 md:pt-0">
+                <div class="text-2xl font-black text-cyan-400 tracking-wider">ZONE 01</div>
+                <div class="text-[11px] font-bold tracking-widest text-slate-300 uppercase mt-1">Elitarna strefa bez tłoku</div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
